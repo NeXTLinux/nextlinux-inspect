@@ -1,0 +1,59 @@
+{{!--
+Copyright (C) 2017 Draios inc.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+--}}
+
+{{#sd-promise-wait-overlay promiseState=viewsManager.store classNames="sd-promise-wait-overlay--sm"}}
+    <div class="wsd-capture-breadcrumbs__content">
+        {{#each breadcrumbItems key="configuration.id" as |item|}}
+            <div
+                class="wsd-capture-breadcrumbs__step
+                    {{if isRoot "wsd-capture-breadcrumbs__step--is-root"}}
+                    {{if item.isHome "wsd-capture-breadcrumbs__step--is-home"}}
+                    {{if item.isSelected "wsd-capture-breadcrumbs__step--is-selected"}}
+                    {{if item.hasDescription "wsd-capture-breadcrumbs__step--with-description"}}"
+                {{action select item.step}}
+            >
+                {{#if item.isHome}}
+                    <div class="wsd-capture-breadcrumbs__step-icon">
+                        {{svg-jar "home_black" class=(if item.isSelected "sd-icon" "sd-icon sd-icon--brand") width="32px" height="32px"}}
+                    </div>
+                {{/if}}
+
+                <div class="wsd-capture-breadcrumbs__step-content">
+                    <div class="wsd-capture-breadcrumbs__step-header">
+                        {{#if item.iconName}}
+                            <span class="wsd-capture-breadcrumbs__step-icon">
+                                {{svg-jar item.iconName class="icon" width=item.iconSize height=item.iconSize}}
+                            </span>
+                        {{/if}}
+
+                        <span class="wsd-capture-breadcrumbs__step-name">
+                            {{item.name}}
+                        </span>
+                    </div>
+                    <div class="wsd-capture-breadcrumbs__step-description" title={{item.description}}>
+                        {{item.description}}
+                    </div>
+                </div>
+            </div>
+
+            {{#unless item.isSelected}}
+                <div class="wsd-capture-breadcrumbs__separator">
+                    {{svg-jar "chevron_right_black" class="sd-icon" width="24px" height="24px"}}
+                </div>
+            {{/unless}}
+        {{/each}}
+    </div>
+{{/sd-promise-wait-overlay}}

@@ -1,0 +1,44 @@
+/*
+Copyright (C) 2017 Draios inc.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+.sd-list {
+    padding: @layout-padding-sm;
+
+    overflow: auto;
+
+    &__item,
+    &__item-divider {
+        flex: 1;
+
+        display: flex;
+        align-items: center;
+
+        height: @list-item-height-md;
+        line-height: @list-item-height-md;
+
+        padding: 0 @layout-spacing-sm;
+    }
+
+    &__item {
+        .text-overflow();
+        .selectable-with-background();
+    }
+    &__item-divider:before {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid @color-separator;
+    }
+}

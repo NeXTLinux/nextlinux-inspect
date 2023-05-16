@@ -1,0 +1,102 @@
+/*
+Copyright (C) 2017 Draios inc.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+.wsd-capture-breadcrumbs {
+    &__content {
+        display: flex;
+        align-items: center;
+
+        padding: @layout-spacing-sm @layout-spacing-md;
+    }
+
+    &__step {
+        display: flex;
+        align-items: center;
+
+        height: 48px;
+        padding: @layout-padding-sm;
+        line-height: 48px - @layout-padding-sm * 2;
+
+        transition: color .3s ease;
+        transition: box-shadow .3s ease;
+    }
+
+    &__step:not(&__step--is-selected) {
+        color: @color-text-lighter;
+
+        .selectable();
+    }
+
+    &__step:not(&__step--is-selected):hover {
+        color: @color-text;
+        background-color: @color-background-data;
+        .z-shadow-2();
+    }
+
+    &__step-header,
+    &__step-description {
+        max-width: 200px;
+    }
+    &__step-header {
+        display: flex;
+        align-items: center;
+
+        font-size: @font-size-lg;
+        font-weight: @font-weight-regular;
+
+        transition: all .3s ease;
+    }
+    &__step-name {
+        .text-overflow();
+    }
+    &__step-description {
+        line-height: 0;
+
+        font-size: @font-size-md;
+
+        .text-overflow();
+
+        transition: all .3s ease;
+    }
+    &__step--with-description {
+        line-height: @font-line-height-md;
+    }
+    &__step--with-description &__step-name {
+        font-size: @font-size-md;
+        // font-weight: @font-weight-light;
+    }
+    &__step--with-description &__step-description {
+        line-height: @font-line-height-md;
+    }
+
+    &__step-icon {
+        display: flex;
+
+        margin-right: @layout-spacing-sm;
+    }
+    &__separator {
+        display: flex;
+
+        fill: @color-text-lighter;
+    }
+
+    &__step + &__separator {
+        margin-left: @layout-spacing-md;
+    }
+    &__separator + &__step {
+        margin-left: @layout-spacing-md;
+    }
+}

@@ -1,0 +1,203 @@
+/*
+Copyright (C) 2017 Draios inc.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+.sd-button {
+    @layout-size-lg: 48px;
+    @layout-size-md: 36px;
+    @layout-size-sm: 24px;
+
+    @icon-size-lg: 32px;
+    @icon-size-md: 24px;
+    @icon-size-sm: 16px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-width: @layout-size-md * 2;
+    height: @layout-size-md;
+    padding: 0 @layout-padding-md;
+    border: none;
+    border-radius: 2px;
+    outline: none;
+    background: rgba(0, 0, 0, 0);
+    font-size: 14px;
+    font-weight: @font-weight-regular;
+    letter-spacing: .04em;
+    line-height: @layout-size-md;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    user-select: none;
+
+    cursor: pointer;
+
+    a& {
+        &:link,
+        &:active,
+        &:visited {
+            color: @color-text;
+        }
+    }
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    svg {
+        height: @icon-size-md;
+        width: @icon-size-md;
+    }
+
+    &--raised {
+        .z-shadow-1();
+
+        &:hover,
+        &:focus {
+            .z-shadow-2();
+        }
+    }
+
+    &--is-active,
+    &--is-white&--is-active {
+        background-color: @color-list-item-selected;
+
+        &:hover,
+        &:focus {
+            background-color: @color-list-item-selected-hover;
+        }
+    }
+
+    &--is-primary {
+        background-color: @color-primary;
+        color: white;
+        svg {
+            fill: white;
+        }
+
+        &:hover {
+            background-color: darken(@color-primary, 10%);
+        }
+    }
+
+    &--is-white {
+        background-color: white;
+        color: @color-text;
+
+        svg {
+            fill: @color-text;
+        }
+
+        &:hover,
+        &:focus {
+            background-color: darken(white, 1%);
+        }
+    }
+
+    &--is-light {
+        color: white;
+
+        svg {
+            fill: white;
+        }
+    }
+
+    &--highlight-on-hover {
+        opacity: 0.7;
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    &--no-text-transform {
+        text-transform: none;
+    }
+
+    &--sm {
+        min-width: @layout-size-sm * 2;
+        height: @layout-size-sm;
+        padding: 0 @layout-padding-sm;
+        line-height: @layout-size-sm;
+
+        font-size: @font-size-sm;
+
+        svg {
+            height: @icon-size-sm;
+            width: @icon-size-sm;
+        }
+    }
+
+    &--lg {
+        min-width: @layout-size-lg * 2;
+        height: @layout-size-lg;
+        padding: 0 @layout-padding-md;
+        line-height: @layout-size-lg;
+
+        font-size: @font-size-lg;
+
+        svg {
+            height: @icon-size-lg;
+            width: @icon-size-lg;
+        }
+    }
+
+    &--big {
+        flex-direction: column;
+        justify-content: center;
+
+        padding: @layout-padding-sm / 2;
+        height: 56px;
+
+        font-size: @font-size-xs;
+        line-height: @layout-size-sm;
+    }
+
+    &--fab {
+        padding: round(@layout-size-md - @icon-size-md) / 2;
+        min-width: @layout-size-md;
+
+        border-radius: 50%;
+    }
+
+    &--fab&--is-active {
+        background-color: @color-primary;
+
+        opacity: 1;
+
+        svg {
+            fill: white;
+        }
+
+        &:hover {
+            background-color: darken(@color-primary, 5%);
+        }
+    }
+    &--sm&--fab {
+        padding: round(@layout-size-sm - @icon-size-sm) / 2;
+        min-width: @layout-size-sm;
+    }
+    &--lg&--fab {
+        padding: round(@layout-size-lg - @icon-size-lg) / 2;
+        min-width: @layout-size-lg;
+    }
+
+    &:not(&--fab):not(&--big) {
+        svg {
+            margin-right: @layout-spacing-xs;
+        }
+    }
+}

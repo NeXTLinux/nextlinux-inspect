@@ -1,0 +1,44 @@
+#!/bin/bash
+
+clean_app() {
+    rm -rf bower_components
+    rm -rf deps
+    rm -rf out
+    rm -rf dist
+    rm -rf electron-out
+    rm -rf node_modules
+    rm -rf tmp
+}
+
+clean_addons() {
+    cd lib/wsd-core
+    rm -rf node_modules
+
+    cd ../..
+
+    cd lib/ui-toolkit
+    rm -rf node_modules
+
+    cd ../..
+}
+
+clean_backend() {
+    cd ember-electron/backend
+
+    rm -rf node_modules
+
+    cd ../..
+}
+
+clean_bundle() {
+    cd ember-electron/resources
+
+    rm -rf nextlinux
+
+    cd ../..
+}
+
+clean_app
+clean_addons
+clean_backend
+clean_bundle

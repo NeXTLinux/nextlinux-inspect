@@ -1,0 +1,61 @@
+/*
+Copyright (C) 2017 Draios inc.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+.wsd-echo-op {
+    display: inline-flex;
+
+    border: 1px solid transparent;
+    border-left-width: 4px;
+    border-radius: 2px;
+
+    margin-bottom: @layout-spacing-xs;
+
+    &--is-read {
+        border-color: @color-echo-read;
+        background-color: fade(@color-echo-read, 10%);
+    }
+    &--is-write {
+        border-color: @color-echo-write;
+        background-color: fade(@color-echo-write, 10%);
+    }
+
+    &--is-not-search-match {
+        opacity: 0.4;
+    }
+
+    &__header {
+        width: 250px;
+        border-right: 1px solid @color-separator;
+
+        line-height: @font-line-height-md;
+        font-size: @font-size-md;
+
+        padding: @layout-padding-xs @layout-padding-sm;
+        padding-bottom: @layout-padding-xs / 2;
+
+        .text-overflow();
+        white-space: normal;
+    }
+    &__content {
+        flex: 1;
+
+        font-family: @font-monospace-family;
+        font-size: @font-size-sm;
+
+        padding: @layout-padding-xs @layout-padding-sm;
+        padding-bottom: @layout-padding-xs / 2;
+    }
+}

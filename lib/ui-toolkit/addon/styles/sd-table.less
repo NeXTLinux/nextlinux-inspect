@@ -1,0 +1,128 @@
+/*
+Copyright (C) 2017 Draios inc.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+.sd-table {
+    @row-height: 36px;
+    @cell-min-width: 30px;
+
+    //
+    // BEGIN OF layout/overflow
+    //
+    flex: 1;
+    display: flex;
+
+    background-color: @color-background-data;
+
+    overflow-y: hidden;
+    overflow-x: auto;
+
+    &__wrap {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__head,
+    &__body {
+        display: flex;
+        flex-direction: column;
+    }
+    &__head {
+        height: @row-height;
+
+        overflow-y: hidden;
+    }
+    &__body {
+        flex: 1;
+    }
+
+    &__head-row {
+        height: @row-height;
+        display: flex;
+        line-height: @row-height;
+    }
+    &__head-row {
+        width: 100%;
+    }
+    //
+    // END OF layout/overflow
+    //
+
+    &__body {
+    }
+
+    &__head-row {
+        position: relative;
+
+        font-weight: @font-weight-semibold;
+
+        // let padding sit to the far right side of the table
+        padding: 0 @layout-spacing-sm;
+
+        border: 1px solid @color-separator-light;
+        border-top: none;
+    }
+
+    //
+    // BEGIN ON nested components
+    //
+    &-row {
+        position: relative;
+
+        width: 100%;
+
+        height: @row-height;
+        display: flex;
+        line-height: @row-height - @layout-padding-sm;
+
+        // let padding sit to the far right side of the table
+        padding: @layout-padding-sm / 2 @layout-padding-sm;
+
+        border: 1px solid @color-separator-light;
+        border-top: none;
+
+        .selectable-with-background();
+        .focusable-with-background();
+
+        &--is-not-search-match {
+            color: fade(@color-text, 50%)
+        }
+    }
+
+    &-head-cell,
+    &-cell {
+        flex: 1;
+        min-width: @cell-min-width;
+        display: flex;
+        overflow: hidden;
+
+        padding: 0 @layout-padding-xs;
+
+        &__content {
+            flex: 1;
+            .text-overflow();
+        }
+
+        &--is-right-aligned {
+            justify-content: flex-end;
+        }
+        &--is-right-aligned &__content {
+            text-align: right;
+        }
+    }
+    //
+    // END ON nested components
+    //
+}

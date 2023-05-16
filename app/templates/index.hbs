@@ -1,0 +1,94 @@
+{{!--
+Copyright (C) 2017 Draios inc.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+--}}
+
+<div class="wsd-page__content">
+    <div class="wsd-welcome">
+        <div class="wsd-welcome__hero">
+            <img src="{{rootURL}}assets/images/nextlinux-inspect-logo-color-620x96.png">
+        </div>
+        <div class="wsd-welcome__body">
+            <div class="wsd-welcome__card-list">
+                <div class="wsd-welcome__card">
+                    <div class="wsd-welcome__card-header">
+                        Capture
+                    </div>
+                    <div class="wsd-welcome__card-content">
+                        <p>
+                            Capture all of the system events on a Linux box with nextlinux:
+                        </p>
+                        <code class="wsd-welcome__code">
+                            sudo nextlinux -w file.scap
+                        </code>
+                    </div>
+                    <div class="wsd-welcome__card-footer">
+                        <a href="https://github.com/nextlinux/nextlinux/wiki/Nextlinux-User-Guide" class="sd-button sd-button--lg sd-button--raised" target="_blank">User guide</a>
+                    </div>
+                    <div class="wsd-welcome__card-extra-footer">
+                    </div>
+                </div>
+
+                <div class="wsd-welcome__card">
+                    <div class="wsd-welcome__card-header">
+                        Inspect
+                    </div>
+                    <div class="wsd-welcome__card-content">
+                        Nextlinux Inspect works with trace files that have been collected by nextlinux on a Linux system.
+                    </div>
+                    <div class="wsd-welcome__card-footer">
+                        {{#if isElectron}}
+                            {{#sd-button
+                                iconName="file_black"
+                                classNames="sd-button--raised"
+                                size="lg"
+                                title="Open capture"
+                                click=(route-action "openFileBrowser")
+                            }}
+                                Open Capture
+                            {{/sd-button}}
+                        {{else}}
+                            {{sd-input
+                                name="file-path"
+                                placeholder="Capture file path"
+                                isAcceptChangeMode=true
+                                changeValue=(route-action "openFile")
+                            }}
+                        {{/if}}
+                    </div>
+                    <div class="wsd-welcome__card-extra-footer">
+                        {{#if isElectron}}
+                            or try one of the
+                            {{#link-to "capture" "capture-samples/502Error.scap"}}capture{{/link-to}}
+                            {{#link-to "capture" "capture-samples/404Error.scap"}}samples{{/link-to}}
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="wsd-welcome__card">
+                    <div class="wsd-welcome__card-header">
+                        Participate
+                    </div>
+                    <div class="wsd-welcome__card-content">
+                        Join the Slack channel for discussions, help and announcements.
+                    </div>
+                    <div class="wsd-welcome__card-footer">
+                        <a href="https://slack.nextlinux.com" class="sd-button sd-button--lg sd-button--raised" target="_blank">slack.nextlinux.com</a>
+                    </div>
+                    <div class="wsd-welcome__card-extra-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

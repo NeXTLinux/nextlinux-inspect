@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#
+# Parameters:
+#
+# [nextlinux path]     run backend with custom nextlinux executables path
+#
+
+if [ ! -z "$1" ] && [ -e "$1" ]
+then
+    # or use custom path
+    NEXTLINUX_PATH=$1
+else
+    NEXTLINUX_PATH='../nextlinux/build/userspace/nextlinux'
+fi
+
+copy_nextlinux() {
+    cd ember-electron/resources
+
+    cp -a ../../${NEXTLINUX_PATH}/ ./nextlinux/
+
+    mkdir -p ./nextlinux/capture-samples/
+    cp ../../capture-samples/502Error.scap ./nextlinux/capture-samples/
+    cp ../../capture-samples/404Error.scap ./nextlinux/capture-samples/
+
+    cd ../..
+}
+
+copy_nextlinux

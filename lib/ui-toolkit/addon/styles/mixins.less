@@ -1,0 +1,99 @@
+/*
+Copyright (C) 2017 Draios inc.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+.z-shadow-0() {
+    box-shadow:
+        0px 0px 0px 0px rgba(0, 0, 0, 0.2),
+        0px 0px 0px 0px rgba(0, 0, 0, 0.14),
+        0px 0px 0px 0px rgba(0, 0, 0, 0.12);
+}
+
+.z-shadow-1() {
+    box-shadow:
+        0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+.z-shadow-2() {
+    box-shadow:
+        0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+        0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
+.z-shadow-3() {
+    box-shadow:
+        0px 3px 3px -2px rgba(0, 0, 0, 0.2),
+        0px 3px 4px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+}
+
+.z-shadow-4() {
+    box-shadow:
+        0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+        0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.z-shadow-5() {
+    box-shadow:
+        0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+        0px 5px 8px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+}
+
+.text-overflow() {
+    overflow:       hidden;
+    white-space:    nowrap;
+    text-overflow:  ellipsis;
+}
+
+.side-panel-width() {
+    min-width: 200px;
+    max-width: 200px;
+}
+
+.selectable-with-background() {
+    .selectable();
+
+    &:hover,
+    &:focus {
+        background-color: @color-list-item-hover;
+    }
+
+    &--is-selected {
+        background-color: @color-list-item-selected;
+
+        &:hover,
+        &:focus {
+            background-color: @color-list-item-selected-hover;
+        }
+    }
+}
+.selectable() {
+    cursor: pointer;
+}
+
+.hide-focus() {
+    outline: none;
+}
+.focusable-with-background() {
+    outline: none;
+    &:focus {
+        background-color: @color-list-item-hover;
+    }
+}

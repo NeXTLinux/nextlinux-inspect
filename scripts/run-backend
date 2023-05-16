@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#
+# Parameters:
+#
+# [nextlinux path]     run backend with custom nextlinux executables path
+#
+
+if [ ! -z "$1" ] && [ -e "$1" ]
+then
+    # or use custom path
+    NEXTLINUX_PATH=$1
+else
+    NEXTLINUX_PATH='../../../nextlinux'
+fi
+
+run() {
+    cd ember-electron/backend
+
+    npm start --- -p=${NEXTLINUX_PATH}
+
+    cd ../..
+}
+
+run

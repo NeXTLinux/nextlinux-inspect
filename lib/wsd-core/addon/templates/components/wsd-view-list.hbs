@@ -1,0 +1,59 @@
+{{!--
+Copyright (C) 2017 Draios inc.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+--}}
+
+<div class="wsd-view-list__header">
+    Views
+</div>
+
+<div class="wsd-view-list__content">
+    {{#sd-promise-wait-overlay promiseState=viewsManager.store classNames="sd-promise-wait-overlay--sm"}}
+        {{#sd-list items=views selection=selectedViewId key="configuration.id" select=(action "selectView") as |view|}}
+            {{#if view.iconName}}
+                <div class="wsd-view-list__icon">
+                    {{svg-jar view.iconName class="icon" width="16px" height="16px"}}
+                </div>
+            {{/if}}
+            {{view.configuration.name}}
+        {{/sd-list}}
+    {{/sd-promise-wait-overlay}}
+</div>
+
+<div class="wsd-view-list__footer">
+    <div class="wsd-view-list__control">
+        {{#sd-button
+            iconName="echo"
+            title="I/O streams"
+            classNames="sd-button--big sd-button--raised"
+            color="white"
+            isActive=isEchoSelected
+            click=(action "selectView" "echo")
+        }}
+            I/O Streams
+        {{/sd-button}}
+    </div>
+    <div class="wsd-view-list__control">
+        {{#sd-button
+            iconName="dig"
+            title="Syscalls"
+            classNames="sd-button--big sd-button--raised"
+            color="white"
+            isActive=isDigSelected
+            click=(action "selectView" "dig")
+        }}
+            Syscalls
+        {{/sd-button}}
+    </div>
+</div>

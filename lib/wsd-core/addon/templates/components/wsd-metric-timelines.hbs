@@ -1,0 +1,120 @@
+{{!--
+Copyright (C) 2017 Draios inc.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+--}}
+
+<div class="wsd-metric-timelines__timeline wsd-metric-timelines__timeline--is-header">
+    <div class="wsd-metric-timelines__header">
+        <div class="wsd-metric-timelines__icon">
+           {{svg-jar "access_time_black" class="sd-icon sd-icon--primary"}}
+        </div>
+        <div class="wsd-metric-timelines__name">
+           TIME
+        </div>
+        <div>
+            {{#if hasSelection}}
+                {{#sd-button
+                    iconName="zoom_out_map_black"
+                    classNames="sd-button--highlight-on-hover"
+                    size="sm"
+                    click=(action selectTimeWindow null null)
+                }}
+                    Reset
+                {{/sd-button}}
+            {{/if}}
+        </div>
+    </div>
+    <div class="wsd-metric-timelines__content">
+        <div class="wsd-metric-timelines__overlay-chart" style={{overlayStyle}}>
+            {{#sd-promise-wait-overlay promiseState=summaryDataStore classNames="sd-promise-wait-overlay--sm sd-promise-wait-overlay--no-background sd-promise-wait-overlay--no-overflow"}}
+                {{#if summaryDataStore.hasLoaded}}
+                    {{sd-viz-timeline
+                        timeline=timeline
+                        captureInfo=captureInfo
+                        timelinesWidth=timelinesWidth
+                        from=captureTimeWindow.from
+                        to=captureTimeWindow.to
+                        selectedFrom=selectedTimeWindow.from
+                        selectedTo=selectedTimeWindow.to
+                        isMouseOver=isMouseOver
+                        hoverTimestamp=hoverTimestamp
+                        select=(action selectTimeWindow)
+                        hover=(action "hoverTimestamp")
+                    }}
+                {{/if}}
+            {{/sd-promise-wait-overlay}}
+        </div>
+    </div>
+    <div class="wsd-metric-timelines__controls">
+        <div class="wsd-metric-timelines__value">
+            {{#if hoverTimestamp}}
+                at {{number-to-string hoverTimestampRelative dataType="relativeTime"}}
+            {{/if}}
+        </div>
+        <div class="wsd-metric-timelines__control-button">
+        </div>
+    </div>
+</div>
+
+{{#each timelinesConfiguration key="timeline.name" as |timelineConfiguration|}}
+    <div class="wsd-metric-timelines__timeline">
+        <div class="wsd-metric-timelines__header">
+            <div class="wsd-metric-timelines__marker" style={{timelineConfiguration.markerStyle}}>
+            </div>
+            <div class="wsd-metric-timelines__name">
+               {{timelineConfiguration.timeline.name}}
+            </div>
+        </div>
+        <div class="wsd-metric-timelines__content">
+            {{#if summaryDataStore.hasLoaded}}
+                {{#if canRenderTimelines}}
+                    <svg class="wsd-metric-timelines__chart" width="{{timelinesWidth}}" height="{{timeSeriesHeight}}">
+                        {{#if timelineConfiguration.timeline}}
+                            {{sd-viz-histogram-series
+                                height=timeSeriesHeight
+                                width=timelinesWidth
+                                timestampProp="t"
+                                valueProp="v"
+                                translateY=0
+                                hoverTimestamp=hoverTimestamp
+                                columnColor=timelineConfiguration.color
+                                data=timelineConfiguration.timeline.timeSeries
+                            }}
+                        {{/if}}
+                    </svg>
+                {{/if}}
+            {{/if}}
+        </div>
+
+        <div class="wsd-metric-timelines__controls">
+            <div class="wsd-metric-timelines__value">
+                {{#if hoverTimestamp}}
+                    {{number-to-string timelineConfiguration.hoverValue.v decimalCount=1 isMultiplierOmitted=true}}
+                    <span class="wsd-metric-timelines__value-multiplier">
+                        {{number-to-string timelineConfiguration.hoverValue.v decimalCount=1 isValueOmitted=true}}
+                    </span>
+                {{/if}}
+            </div>
+            <div class="wsd-metric-timelines__control-button {{if isMouseOver "" "wsd-metric-timelines__control-button--is-hidden"}}">
+                {{sd-button
+                    iconName="close"
+                    classNames="sd-button--fab sd-button--highlight-on-hover"
+                    size="sm"
+                    title="Remove the metric timeline"
+                    click=(action remove timelineConfiguration.timeline.name)
+                }}
+            </div>
+        </div>
+    </div>
+{{/each}}

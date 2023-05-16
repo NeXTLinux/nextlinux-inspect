@@ -1,0 +1,155 @@
+/*
+Copyright (C) 2017 Draios inc.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+.wsd-metric-tile {
+    @header-height-md: 36px;
+    @content-height-sm: 28px;
+    @content-height-md: 36px;
+
+    flex: 1;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    min-width: 130px + @layout-padding-sm * 2;
+
+    padding: @layout-padding-sm;
+
+    background-color: @color-background-data;
+    border-radius: 3px;
+    cursor: pointer;
+
+    transition: box-shadow .3s ease;
+
+    outline: 0 solid @color-primary;
+
+    &--is-selected {
+        outline: 1px solid @color-primary;
+    }
+
+    &--is-empty {
+    }
+
+    &__overlay {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        border: 1px solid @color-separator-light;
+        border-radius: 3px;
+    }
+    &--is-pinned &__overlay {
+        border-left-width: floor(@layout-padding-sm / 3 * 2);
+    }
+
+    &__header {
+        z-index: 1;
+
+        height: @header-height-md;
+        line-height: @header-height-md / 2;
+        font-size: @font-size-sm;
+        text-align: center;
+
+        display: flex;
+
+        margin-bottom: @layout-spacing-sm / 2;
+    }
+    &__name {
+        flex: 1;
+    }
+
+    &__content {
+        position: relative;
+        z-index: 1;
+
+        flex: 1;
+
+        display: flex;
+        align-items: baseline;
+
+        font-size: @font-size-xl;
+        height: @content-height-sm;
+        line-height: @content-height-sm;
+    }
+    &__value {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        .text-overflow();
+    }
+    &__value-number {
+    }
+    &__value-multiplier {
+        padding-left: @layout-spacing-sm;
+        font-size: @font-size-xl;
+    }
+    &__action {
+        position: absolute;
+        display: flex;
+        right: -@layout-padding-md / 2;
+        top: -(@content-height-md - @content-height-sm) / 2;
+        opacity: 0;
+    }
+    &__empty-value {
+        font-size: @font-size-xl;
+    }
+
+    &__footer {
+        display: flex;
+
+        z-index: 0;
+
+        position: absolute;
+        bottom: @layout-padding-md / 2;
+        left: 50%;
+        transform: translate(-50%);
+
+        opacity: 0.8;
+    }
+
+    &:hover {
+        .z-shadow-2();
+    }
+    &:hover &__action {
+        opacity: 1;
+    }
+    &:hover &__footer {
+        opacity: 1;
+    }
+
+    @media screen and (min-height: 948px) {
+        &__header {
+            height: @header-height-md;
+            line-height: @header-height-md / 2;
+            font-size: @font-size-md;
+        }
+
+        &__content {
+            height: @content-height-md;
+            line-height: @content-height-md;
+        }
+        &__action {
+            top: 0;
+        }
+    }
+
+    @media screen and (min-width: 1380px) {
+        padding: @layout-padding-sm @layout-padding-md;
+    }
+}

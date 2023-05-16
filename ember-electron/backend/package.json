@@ -1,0 +1,34 @@
+{
+  "name": "nextlinux-inspect-backend",
+  "description": "Backend server for run nextlinux on a capture end receive json output data.",
+  "author": "Nextlinux Inc.",
+  "license": {
+    "type": "GNU General Public License",
+    "url": "http://www.gnu.org/licenses/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nextlinux/nextlinux-inspect.git"
+  },
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha tests/test.js",
+    "start": "./node_modules/.bin/nodemon main.js"
+  },
+  "dependencies": {
+    "cors": "2.8.5",
+    "express": "4.17.0",
+    "forever": "^1.0.0",
+    "untildify": "^4.0.0",
+    "yargs": "13.2.4"
+  },
+  "devDependencies": {
+    "chai": "4.2.0",
+    "mocha": "6.1.4",
+    "nodemon": "1.19.0",
+    "braces": "^2.3.1"
+  },
+  "engines": {
+    "node": "10.15.*"
+  }
+}

@@ -1,0 +1,261 @@
+/*
+Copyright (C) 2017 Draios inc.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+.sd-viz-timeline {
+    @timeline-height: 46px;
+    @timeline-margin: 8px;
+    @timeline-viewport: @timeline-height + @timeline-margin;
+
+    @color-outer-area: fade(@color-primary-lighten-4, 75%);
+    @color-draggable-area: fade(@color-primary, 55%);
+    @color-draggable-area-on-hover: fade(@color-primary, 75%);
+    @color-time-markers: @color-primary-lighten-3; // exactly like @color-draggable-area, just without transparency
+    @color-time-text: @color-text;
+    @color-handle: @color-primary-lighten-5;
+
+    @handle-arrow-width: 8px;
+    @draggable-handle-width: 2px + 2px + 2px;
+    @draggable-handle-width-on-hover: 2px + 2px + 2px + 2px + 2px;
+    @time-labels-width: 82px;
+    @time-label-height: 14px + 2px;
+    @time-diff-label-width: 140px;
+
+    @z-index-marker: 1;
+    @z-index-selected-area: 2;
+    @z-index-handles: 3;
+    @z-index-labels: 4;
+
+    flex: 1;
+
+    display: flex;
+    align-items: stretch;
+
+    cursor: pointer;
+
+    &__left-area,
+    &__selected-area,
+    &__right-area {
+        position: relative;
+    }
+
+    &__selected-area {
+        flex: 1;
+
+        position: relative;
+    }
+
+    &__left-area,
+    &__right-area {
+        background-color: @color-outer-area;
+        z-index: @z-index-selected-area;
+    }
+
+    &__draggable-handle {
+        position: absolute;
+        z-index: @z-index-handles;
+        width: @draggable-handle-width;
+        top: 0;
+        bottom: 0;
+        height: 100%;
+
+        padding: 0 2px;
+
+        background-color: @color-draggable-area;
+        cursor: ew-resize;
+
+        transition: all .1s ease;
+    }
+    &--is-mouse-over &__draggable-handle {
+        width: @draggable-handle-width-on-hover;
+        background-color: @color-draggable-area-on-hover;
+    }
+
+    &__left-area &__draggable-handle {
+        right: 0;
+    }
+    &__right-area &__draggable-handle {
+        left: 0;
+    }
+    &__handle {
+        position: relative;
+
+        top: 50%;
+        transform: translate(0, -50%);
+
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+    }
+    &__handle-bar {
+        background-color: @color-handle;
+
+        width: 0;
+        margin-left: 0;
+
+        height: 16px;
+
+        transition: width .1s ease;
+        transition: margin .1s ease;
+    }
+    &__handle-bar + &__handle-bar {
+        width: 2px;
+    }
+    &--is-mouse-over &__handle-bar {
+        width: 2px;
+    }
+    &--is-mouse-over &__handle-bar + &__handle-bar {
+        margin-left: 2px;
+    }
+
+    &__axis {
+        position: absolute;
+        top: (@timeline-viewport - 1) / 2;
+        height: 1px;
+        width: 100%;
+        background-color: @color-primary-lighten-2;
+    }
+    &__time,
+    &__time-diff {
+        top: (@timeline-viewport - @time-label-height) / 2;
+        height: @time-label-height;
+        width: @time-labels-width - @layout-padding-sm;
+
+        padding: 2px @layout-padding-sm;
+
+        line-height: @time-label-height - 2px * 2;
+        font-size: @font-size-sm;
+        color: white;
+        pointer-events: none;
+    }
+
+    &__time {
+        position: absolute;
+    }
+
+    &__time-diff {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+
+        width: @time-diff-label-width - @layout-padding-sm;
+
+        text-align: center;
+
+        background-color: @color-time-markers;
+        color: @color-time-text;
+
+        transition: top .1s ease;
+
+        &--is-on-top {
+            top: 0;
+        }
+
+        &:before,
+        &:after {
+            content: ' ';
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: 0;
+            border: @time-label-height / 2 solid transparent;
+        }
+        &:before {
+            left: -@time-label-height;
+            border-right-color: @color-time-markers;
+        }
+        &:after {
+            right: -@time-label-height;
+            border-left-color: @color-time-markers;
+        }
+    }
+    &__time,
+    &__time-diff {
+        z-index: @z-index-labels;
+    }
+
+    &__time-diff-icon {
+        width: 16px;
+    }
+
+    &__time {
+        background-color: @color-time-markers;
+        color: @color-time-text;
+
+        transition: all .1s ease;
+
+        &:before,
+        &:after {
+            content: ' ';
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: 0;
+            border: @time-label-height / 2 solid transparent;
+        }
+        &:before {
+            left: -@time-label-height;
+        }
+        &:after {
+            right: -@time-label-height;
+        }
+        &--is-internal&--is-from {
+            left: @handle-arrow-width;
+            text-align: left;
+        }
+        &--is-internal&--is-from&:before {
+            border-right-color: @color-time-markers;
+        }
+        &--is-internal&--is-to {
+            right: @handle-arrow-width;
+            text-align: right;
+        }
+        &--is-internal&--is-to&:after {
+            border-left-color: @color-time-markers;
+        }
+
+        &--is-external&--is-from {
+            left: -(@time-labels-width + @draggable-handle-width);
+            text-align: right;
+        }
+        &--is-external&--is-from&:after {
+            border-left-color: @color-time-markers;
+        }
+        &--is-external&--is-to {
+            right: -(@time-labels-width + @draggable-handle-width);
+            text-align: left;
+        }
+        &--is-external&--is-to&:before {
+            border-right-color: @color-time-markers;
+        }
+    }
+    &--is-mouse-over &__time--is-external&__time--is-from {
+        left: -(@time-labels-width + @draggable-handle-width-on-hover);
+    }
+    &--is-mouse-over &__time--is-external&__time--is-to {
+        right: -(@time-labels-width + @draggable-handle-width-on-hover);
+    }
+
+    &__hover-marker {
+        position: absolute;
+        z-index: @z-index-marker;
+        top: 0;
+        left: 256px;
+
+        width: 5px;
+        height: 100%;
+        background-color: fade(@color-primary-lighten-1, 40%);
+    }
+}

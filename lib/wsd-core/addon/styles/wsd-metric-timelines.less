@@ -1,0 +1,138 @@
+/*
+Copyright (C) 2017 Draios inc.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+.wsd-metric-timelines {
+    @timeline-height: 30px;
+    @timeline-margin: 8px;
+    @timeline-viewport: @timeline-height + @timeline-margin;
+
+    @timeline-draggable-handle-width: 10px;
+    @header-width: 200px;
+
+    position: relative;
+
+    flex: 1;
+    display: block;
+
+    overflow: hidden;
+
+    background-color: @color-primary-lighten-4;
+
+    &__timeline {
+        display: flex;
+        align-items: center;
+
+        padding: @layout-padding-sm / 2 @layout-padding-sm;
+        padding-right: 0;
+        height: @timeline-height + @layout-padding-sm;
+    }
+    &__header {
+        display: flex;
+        align-items: center;
+
+        width: @header-width - @layout-spacing-sm * 2 - 1;
+        height: 100%;
+
+        margin-right: @layout-spacing-sm;
+    }
+    &__icon {
+        margin-right: @layout-spacing-sm;
+    }
+    &__marker {
+        width: 8px;
+        height: 100%;
+
+        margin-right: @layout-spacing-sm / 2;
+    }
+    &__name {
+        flex: 1;
+
+        display: flex;
+        align-items: center;
+
+        font-size: @font-size-sm;
+        .text-overflow();
+    }
+
+    &__content {
+        flex: 1;
+        display:flex;
+        align-items: stretch;
+        margin-right: @layout-spacing-xs;
+
+        // prevent child to stretch the container, so that size can always be computed at run-time
+        overflow: hidden;
+    }
+    &__chart {
+        margin: 0 @timeline-draggable-handle-width;
+    }
+
+    &__controls {
+        width: 108px;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        padding-right: @layout-spacing-sm;
+    }
+    &__value {
+        flex: 1;
+
+        margin-right: @layout-spacing-xs;
+
+        text-align: right;
+        font-size: @font-size-sm;
+        font-weight: @font-weight-regular;
+    }
+    &__value-multiplier {
+        font-weight: @font-weight-light;
+    }
+    &__control-button {
+        width: 24px;
+        transition: opacity .1s ease;
+        &--is-hidden {
+            opacity: 0.3;
+        }
+    }
+
+    &__timeline--is-header {
+        margin-bottom: 0;
+        height: @timeline-height + @layout-spacing-sm + @layout-padding-md;
+    }
+    &__timeline--is-header &__name {
+        color: @color-primary;
+        font-size: @font-size-md;
+        font-weight: @font-weight-regular;
+    }
+    &__timeline--is-header &__content {
+    }
+    &__overlay-chart {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        z-index: 1;
+
+        left: @header-width - 1;
+
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
